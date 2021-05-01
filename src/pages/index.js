@@ -1,61 +1,94 @@
-import Head from 'next/head';
-import styles from '../../styles/Home.module.css';
+import { Box, Button, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
+import {
+    Code as CodeIcon,
+    DataUsage as DataUsageIcon,
+    Print as PrintIcon,
+    ShowChart as ShowChartIcon,
+} from '@material-ui/icons';
+import { useRef, useState } from 'react';
+import { useReactToPrint } from 'react-to-print';
+import printStyle from '../../styles/print.module.css';
+import TopicsList from '../components/Content/List';
+import Layout from '../components/Layout';
+import Thumbnail from '../components/Thumbnail';
+import { description, image, shortTitle, title } from '../data.json';
 
-export default function Home() {
+const getIcon = (iconName) => {
+    switch (iconName) {
+        case 'Programming':
+            return CodeIcon;
+        case 'Data Structures':
+            return DataUsageIcon;
+        case 'Algorithms':
+            return ShowChartIcon;
+        default:
+            return false;
+    }
+};
+
+const Description = ({ ti, paragraph }) => (
+    <>
+        <Typography variant="h5">{ti}</Typography>
+        <Typography variant="body1">{paragraph}</Typography>
+        <br />
+    </>
+);
+
+function Home() {
+    const isMobile = useMediaQuery('(max-width:600px)');
+    const componentRef = useRef();
+    const [isPrint, setPrint] = useState(false);
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        bodyClass: printStyle.mediaPrint,
+        documentTitle: `${process.env.C_NAME}${process.env.ROOT_PAGE}`,
+        onBeforeGetContent: () => {
+            setPrint(true);
+        },
+        onAfterPrint: () => {
+            setPrint(false);
+        },
+    });
     return (
-        <div className={styles.container}>
-            <Head>
-                <title>Create Next App</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-
-            <main className={styles.main}>
-                <h1 className={styles.title}>
-                    Welcome to <a href="https://nextjs.org">Next.js!</a>
-                </h1>
-
-                <p className={styles.description}>
-                    Get started by editing <code className={styles.code}>pages/index.js</code>
-                </p>
-
-                <div className={styles.grid}>
-                    <a href="https://nextjs.org/docs" className={styles.card}>
-                        <h3>Documentation &rarr;</h3>
-                        <p>Find in-depth information about Next.js features and API.</p>
-                    </a>
-
-                    <a href="https://nextjs.org/learn" className={styles.card}>
-                        <h3>Learn &rarr;</h3>
-                        <p>Learn about Next.js in an interactive course with quizzes!</p>
-                    </a>
-
-                    <a
-                        href="https://github.com/vercel/next.js/tree/master/examples"
-                        className={styles.card}
-                    >
-                        <h3>Examples &rarr;</h3>
-                        <p>Discover and deploy boilerplate example Next.js projects.</p>
-                    </a>
-
-                    <a
-                        href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                        className={styles.card}
-                    >
-                        <h3>Deploy &rarr;</h3>
-                        <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-                    </a>
-                </div>
-            </main>
-
-            <footer className={styles.footer}>
-                <a
-                    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Powered by <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-                </a>
-            </footer>
-        </div>
+        <Layout>
+            <Box height="5rem" />
+            <Box paddingTop="1rem" paddingBottom="1rem">
+                <Grid container spacing={2}>
+                    <Grid item sm={3}>
+                        {!isMobile && <TopicsList />}
+                    </Grid>
+                    <Grid item sm={9}>
+                        <div ref={componentRef}>
+                            <Thumbnail
+                                image={getIcon(title) ? false : image}
+                                Icon={getIcon(title)}
+                                description={shortTitle}
+                                title={title}
+                                isPrint={isPrint}
+                            />
+                            <Divider />
+                            <br />
+                            {description.map((text) => (
+                                <Description
+                                    key={text.title}
+                                    ti={text.title}
+                                    paragraph={text.paragraph}
+                                />
+                            ))}
+                        </div>
+                        <Button
+                            onClick={handlePrint}
+                            variant="outlined"
+                            fullWidth
+                            startIcon={<PrintIcon />}
+                        >
+                            প্রিন্ট করুন
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Box>
+        </Layout>
     );
 }
+
+export default Home;
