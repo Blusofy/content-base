@@ -93,7 +93,7 @@ function Footer() {
                 <Grid container>
                     <Grid item sm={3}>
                         <GapDiv>
-                            <Typography variant="h5">প্রোগ্রামিং ভাষা</Typography>
+                            <Typography variant="h5">জনপ্রিয় প্রযুক্তি</Typography>
                             <CustomList lists={languages} icon={<FiberManualRecordIcon />} />
                         </GapDiv>
                     </Grid>
@@ -111,7 +111,7 @@ function Footer() {
                     </Grid>
                     <Grid item sm={3}>
                         <GapDiv>
-                            <Typography variant="h5">আমাদের সম্পর্কে</Typography>
+                            <Typography variant="h5">ইনফরমেটিভ কোডিং</Typography>
                             <br />
 
                             <Typography variant="body1">
