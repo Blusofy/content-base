@@ -5,6 +5,7 @@ import {
     Print as PrintIcon,
     ShowChart as ShowChartIcon,
 } from '@material-ui/icons';
+import Head from 'next/head';
 import { useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import printStyle from '../../styles/print.module.css';
@@ -17,9 +18,9 @@ const getIcon = (iconName) => {
     switch (iconName) {
         case 'Programming':
             return CodeIcon;
-        case 'Data Structures':
+        case 'Data Structure':
             return DataUsageIcon;
-        case 'Algorithms':
+        case 'Algorithm':
             return ShowChartIcon;
         default:
             return false;
@@ -50,44 +51,56 @@ function Home() {
         },
     });
     return (
-        <Layout>
-            <Box height="5rem" />
-            <Box paddingTop="1rem" paddingBottom="1rem">
-                <Grid container spacing={2}>
-                    <Grid item sm={3}>
-                        {!isMobile && <TopicsList />}
-                    </Grid>
-                    <Grid item sm={9}>
-                        <div ref={componentRef}>
-                            <Thumbnail
-                                image={getIcon(title) ? false : image}
-                                Icon={getIcon(title)}
-                                description={shortTitle}
-                                title={title}
-                                isPrint={isPrint}
-                            />
-                            <Divider />
-                            <br />
-                            {description.map((text) => (
-                                <Description
-                                    key={text.title}
-                                    ti={text.title}
-                                    paragraph={text.paragraph}
+        <>
+            <Head>
+                <title>
+                    {`${title} (${
+                        process.env.ROOT_PAGE.slice(1)[0].toUpperCase() +
+                        process.env.ROOT_PAGE.slice(2)
+                    })`}{' '}
+                    | Informative Coding - ইনফরমেটিভ কোডিং
+                </title>
+                <link rel="canonical" href={`${process.env.C_NAME}${process.env.ROOT_PAGE}`} />
+            </Head>
+            <Layout>
+                <Box height="5rem" />
+                <Box paddingTop="1rem" paddingBottom="1rem">
+                    <Grid container spacing={2}>
+                        <Grid item sm={3}>
+                            {!isMobile && <TopicsList />}
+                        </Grid>
+                        <Grid item sm={9}>
+                            <div ref={componentRef}>
+                                <Thumbnail
+                                    image={getIcon(title) ? false : image}
+                                    Icon={getIcon(title)}
+                                    description={shortTitle}
+                                    title={title}
+                                    isPrint={isPrint}
                                 />
-                            ))}
-                        </div>
-                        <Button
-                            onClick={handlePrint}
-                            variant="outlined"
-                            fullWidth
-                            startIcon={<PrintIcon />}
-                        >
-                            প্রিন্ট করুন
-                        </Button>
+                                <Divider />
+                                <br />
+                                {description.map((text) => (
+                                    <Description
+                                        key={text.title}
+                                        ti={text.title}
+                                        paragraph={text.paragraph}
+                                    />
+                                ))}
+                            </div>
+                            <Button
+                                onClick={handlePrint}
+                                variant="outlined"
+                                fullWidth
+                                startIcon={<PrintIcon />}
+                            >
+                                প্রিন্ট করুন
+                            </Button>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Box>
-        </Layout>
+                </Box>
+            </Layout>
+        </>
     );
 }
 

@@ -21,9 +21,9 @@ const data = {
     favicon: '/static/favicon.ico',
 };
 
-const SEO = () => (
+const SEO = ({ title }) => (
     <>
-        <title>{data.title}</title>
+        <title>{title || data.title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content={data.description} />
         <meta name="robots" content="index, follow" />

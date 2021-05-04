@@ -13,7 +13,6 @@ import CustomList from './List';
 function GapDiv({ children }) {
     return <div style={{ padding: '2rem' }}>{children}</div>;
 }
-
 const languages = [
     {
         name: 'জাভাস্ক্রিপ্ট',
@@ -42,37 +41,37 @@ const resources = [
         url: '/programming',
     },
     {
-        name: 'ডাটা স্ট্রাটার্স',
-        url: '/datastructures',
+        name: 'ডাটা স্ট্রাকচার',
+        url: '/datastructure',
     },
     {
-        name: 'অ্যালগরিদমস',
-        url: '/algorithms',
+        name: 'অ্যালগরিদম',
+        url: '/algorithm',
     },
     {
-        name: 'টেকনোলজি',
+        name: 'জনপ্রিয় প্রযুক্তি',
         url: '/technologies',
     },
     {
         name: 'ব্লগ',
-        url: '/blogs',
+        url: '/blog',
     },
 ];
 const organization = [
     {
-        name: 'সম্পর্কিত',
-        url: '/about',
+        name: 'আমাদের সম্পর্কে',
+        url: '/about-us',
     },
     {
-        name: 'কান্ট্রিবিউশন',
+        name: 'আমাদের লেখকগণ',
+        url: '/our-authors',
+    },
+    {
+        name: 'কন্ট্রিবিউশন',
         url: '/contribution',
     },
     {
-        name: 'প্রাইভেসি পলিসি',
-        url: '/privacy-policy',
-    },
-    {
-        name: 'টার্মস এন্ড কন্ডিশন',
+        name: 'ব্যবহারবিধি এবং নীতিমালা',
         url: '/terms-conditions',
     },
     {
@@ -116,10 +115,10 @@ function Footer() {
                             <br />
 
                             <Typography variant="body1">
-                                জাভাস্ক্রিপ্ট হচ্ছে একটি প্রোগ্রামিং ভাষা। যেটি ব্রাউসার এবং লোকাল
-                                মেশিনে রান করতে সক্ষম। জাভাস্ক্রিপ্ট হচ্ছে একটি প্রোগ্রামিং ভাষা।
-                                যেটি ব্রাউসার এবং লোকাল মেশিনে রান করতে সক্ষম। জাভাস্ক্রিপ্ট হচ্ছে
-                                একটি প্রোগ্রামিং ভাষা।
+                                ইনফরমেটিভ কোডিং হচ্ছে একটি অলাভজনক সংস্থা। যার উদ্দেশ্য বাংলায়
+                                প্রোগ্রামিং সম্পর্কিত বিষয় সমূহের বৃহৎ সংস্থান গড়ে তোলে মানুষ কে
+                                শিখার সুযোগ করে দেওয়া। ইনফরমেটিভ কোডিং এর কনটেন্ট ইউটুব এবং
+                                ওয়েবসাইটের মাধ্যমে প্রকাশিত হয়।
                             </Typography>
                         </GapDiv>
                     </Grid>
@@ -134,7 +133,12 @@ function Footer() {
                         flexDirection: isMobile ? 'column-reverse' : 'row',
                     }}
                 >
-                    <Typography variant="button">Informative Coding</Typography>
+                    <Typography variant="h6">
+                        - ইনফরমেটিভ{' '}
+                        <Typography variant="span" color="textSecondary">
+                            কোডিং
+                        </Typography>
+                    </Typography>
                     <SocialLinks links={links} />
                 </div>
             </Container>

@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { Edit as EditIcon, Print as PrintIcon, YouTube as YouTubeIcon } from '@material-ui/icons';
 import { Base64 } from 'js-base64';
+import Head from 'next/head';
 import { useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import printStyle from '../../styles/print.module.css';
@@ -35,92 +36,109 @@ function Content({ content, source, title }) {
         },
     });
     return (
-        <Layout>
-            <Box
-                padding={isMobile ? '0rem' : '1rem'}
-                paddingTop="1rem"
-                marginTop="5rem"
-                marginBottom="2rem"
-            >
-                {/* Content Body */}
-                <Grid container spacing={2}>
-                    <Grid item sm={3}>
-                        {!isMobile && (
-                            <Paper style={{ position: 'sticky', top: '8%' }}>
-                                <ContentList />
-                                <Box padding="0.5rem">
-                                    <Button
-                                        size="large"
-                                        startIcon={<YouTubeIcon />}
-                                        fullWidth
-                                        variant="outlined"
-                                    >
-                                        সাবস্ক্রাইব করুন
-                                    </Button>
+        <>
+            <Head>
+                <title>
+                    {`${title} (${
+                        process.env.ROOT_PAGE.slice(1)[0].toUpperCase() +
+                        process.env.ROOT_PAGE.slice(2)
+                    })`}{' '}
+                    | Informative Coding - ইনফরমেটিভ কোডিং
+                </title>
+                <link
+                    rel="canonical"
+                    href={`${process.env.C_NAME}${process.env.ROOT_PAGE}/${title}`}
+                />
+            </Head>
+            <Layout>
+                <Box
+                    padding={isMobile ? '0rem' : '1rem'}
+                    paddingTop="1rem"
+                    marginTop="5rem"
+                    marginBottom="2rem"
+                >
+                    {/* Content Body */}
+                    <Grid container spacing={2}>
+                        <Grid item sm={3}>
+                            {!isMobile && (
+                                <Paper style={{ position: 'sticky', top: '8%' }}>
+                                    <ContentList />
+                                    <Box padding="0.5rem">
+                                        <Button
+                                            size="large"
+                                            startIcon={<YouTubeIcon />}
+                                            fullWidth
+                                            variant="outlined"
+                                        >
+                                            <Typography variant="subtitle1">
+                                                সাবস্ক্রাইব করুন
+                                            </Typography>
+                                        </Button>
+                                    </Box>
+                                </Paper>
+                            )}
+                        </Grid>
+                        <Grid item sm={9} style={{ width: '100%' }}>
+                            <Fade in>
+                                <Box padding={isMobile ? '0rem' : '1rem'}>
+                                    <div ref={componentRef}>
+                                        {isPrint && <PrintHead />}
+                                        <ContentView content={content} source={source} />
+                                    </div>
                                 </Box>
-                            </Paper>
-                        )}
-                    </Grid>
-                    <Grid item sm={9} style={{ width: '100%' }}>
-                        <Fade in>
-                            <Box padding={isMobile ? '0rem' : '1rem'}>
-                                <div ref={componentRef}>
-                                    {isPrint && <PrintHead />}
-                                    <ContentView content={content} source={source} />
-                                </div>
+                            </Fade>
+                            <Divider />
+                            {/* Content Footer */}
+                            <Box display="flex" padding="0.5rem" justifyContent="space-between">
+                                <Button
+                                    href={source}
+                                    target="blank"
+                                    fullWidth
+                                    variant="outlined"
+                                    color="primary"
+                                    startIcon={<EditIcon />}
+                                    style={{ marginRight: '0.25rem' }}
+                                >
+                                    এডিট করুন
+                                </Button>
+                                <Button
+                                    onClick={handlePrint}
+                                    variant="outlined"
+                                    style={{ marginLeft: '0.25rem' }}
+                                    fullWidth
+                                    startIcon={<PrintIcon />}
+                                >
+                                    প্রিন্ট করুন
+                                </Button>
                             </Box>
-                        </Fade>
-                        <Divider />
-                        {/* Content Footer */}
-                        <Box display="flex" padding="0.5rem" justifyContent="space-between">
-                            <Button
-                                href={source}
-                                target="blank"
-                                fullWidth
-                                variant="outlined"
-                                color="primary"
-                                startIcon={<EditIcon />}
-                                style={{ marginRight: '0.25rem' }}
+                            <Box
+                                display="flex"
+                                paddingLeft="0.5rem"
+                                paddingRight="0.5rem"
+                                justifyContent="space-between"
+                                alignItems="center"
                             >
-                                এডিট করুন
-                            </Button>
-                            <Button
-                                onClick={handlePrint}
-                                variant="outlined"
-                                style={{ marginLeft: '0.25rem' }}
-                                fullWidth
-                                startIcon={<PrintIcon />}
-                            >
-                                প্রিন্ট করুন
-                            </Button>
-                        </Box>
-                        <Box
-                            display="flex"
-                            paddingLeft="0.5rem"
-                            paddingRight="0.5rem"
-                            justifyContent="space-between"
-                            alignItems="center"
-                        >
-                            <Typography variant="subtitle1" color="textSecondary">
-                                শেয়ার করুন -
-                            </Typography>
-                            <SocialLinks
-                                links={[
-                                    {
-                                        name: 'facebook',
-                                        href: `https://www.facebook.com/sharer/sharer.php?u=${process.env.C_NAME}/${process.env.ROOT_PAGE}/${title}`,
-                                    },
-                                    {
-                                        name: 'linkedin',
-                                        href: `https://www.linkedin.com/sharing/share-offsite/?url=${process.env.C_NAME}${process.env.ROOT_PAGE}/${title}`,
-                                    },
-                                ]}
-                            />
-                        </Box>
+                                <Typography variant="subtitle1" color="textSecondary">
+                                    শেয়ার করুন -
+                                </Typography>
+                                <SocialLinks
+                                    links={[
+                                        {
+                                            name: 'facebook',
+                                            href: `https://www.facebook.com/sharer/sharer.php?u=${process.env.C_NAME}/${process.env.ROOT_PAGE}/${title}`,
+                                        },
+                                        {
+                                            name: 'linkedin',
+                                            href: `https://www.linkedin.com/sharing/share-offsite/?url=${process.env.C_NAME}${process.env.ROOT_PAGE}/${title}`,
+                                        },
+                                    ]}
+                                />
+                            </Box>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Box>
-        </Layout>
+                </Box>
+            </Layout>
+        </>
     );
 }
 // Get Static Props For SSG
@@ -164,7 +182,6 @@ export async function getStaticPaths() {
             fallback: false,
         };
     } catch (e) {
-        console.log('Error Occurred: ', e);
         return {
             paths: [],
             fallback: false,
