@@ -33,7 +33,7 @@ function Navbar(props) {
                                     justifyContent="center"
                                     alignItems="center"
                                     component="a"
-                                    href="/"
+                                    href={process.env.C_NAME}
                                     alt="Informative Coding | Learn Programming"
                                 >
                                     <img

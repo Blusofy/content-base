@@ -4,87 +4,13 @@
  * Title: WEB FOOTTER
  * Description: Web footer section
  * * */
-import { Container, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
+import { Box, Container, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import SocialLinks from '../SocialLinks';
+import { languages, links, organization, resources } from './data.json';
 import CustomList from './List';
 
-function GapDiv({ children }) {
-    return <div style={{ padding: '2rem' }}>{children}</div>;
-}
-const languages = [
-    {
-        name: 'জাভাস্ক্রিপ্ট',
-        url: '/javascript',
-    },
-    {
-        name: 'পাইথন',
-        url: '/python',
-    },
-    {
-        name: 'সি',
-        url: '/c',
-    },
-    {
-        name: 'সি++',
-        url: '/c',
-    },
-    {
-        name: 'টাইপস্ক্রিপট',
-        url: '/typescript',
-    },
-];
-const resources = [
-    {
-        name: 'প্রোগ্রামিং',
-        url: '/programming',
-    },
-    {
-        name: 'ডাটা স্ট্রাকচার',
-        url: '/datastructure',
-    },
-    {
-        name: 'অ্যালগরিদম',
-        url: '/algorithm',
-    },
-    {
-        name: 'জনপ্রিয় প্রযুক্তি',
-        url: '/technologies',
-    },
-    {
-        name: 'ব্লগ',
-        url: '/blog',
-    },
-];
-const organization = [
-    {
-        name: 'আমাদের সম্পর্কে',
-        url: '/about-us',
-    },
-    {
-        name: 'আমাদের লেখকগণ',
-        url: '/our-authors',
-    },
-    {
-        name: 'কন্ট্রিবিউশন',
-        url: '/contribution',
-    },
-    {
-        name: 'ব্যবহারবিধি এবং নীতিমালা',
-        url: '/terms-conditions',
-    },
-    {
-        name: 'ইউটুব',
-        url: 'https://www.youtube.com/channel/UCBSNbOumi5uNLJz8vFGJLRQ',
-    },
-];
-const links = [
-    { name: 'facebook', href: 'https://facebook.com/InformativeCoding' },
-    { name: 'linkedin', href: 'https://www.linkedin.com/company/informativecoding' },
-    { name: 'github', href: 'https://github.com/InformativeCoding' },
-    { name: 'youtube', href: 'https://www.youtube.com/channel/UCBSNbOumi5uNLJz8vFGJLRQ' },
-];
 function Footer() {
     const isMobile = useMediaQuery('(max-width:600px)');
     return (
@@ -92,25 +18,25 @@ function Footer() {
             <Container>
                 <Grid container>
                     <Grid item sm={3}>
-                        <GapDiv>
+                        <Box padding="2rem">
                             <Typography variant="h5">জনপ্রিয় প্রযুক্তি</Typography>
                             <CustomList lists={languages} icon={<FiberManualRecordIcon />} />
-                        </GapDiv>
+                        </Box>
                     </Grid>
                     <Grid item sm={3}>
-                        <GapDiv>
+                        <Box padding="2rem">
                             <Typography variant="h5">রিসোর্স</Typography>
                             <CustomList lists={resources} icon={<TrendingFlatIcon />} />
-                        </GapDiv>
+                        </Box>
                     </Grid>
                     <Grid item sm={3}>
-                        <GapDiv>
+                        <Box padding="2rem">
                             <Typography variant="h5">অর্গানাইজেশন</Typography>
                             <CustomList lists={organization} icon={<FiberManualRecordIcon />} />
-                        </GapDiv>
+                        </Box>
                     </Grid>
                     <Grid item sm={3}>
-                        <GapDiv>
+                        <Box padding="2rem">
                             <Typography variant="h5">ইনফরমেটিভ কোডিং</Typography>
                             <br />
 
@@ -120,7 +46,7 @@ function Footer() {
                                 শিখার সুযোগ করে দেওয়া। ইনফরমেটিভ কোডিং এর কনটেন্ট ইউটুব এবং
                                 ওয়েবসাইটের মাধ্যমে প্রকাশিত হয়।
                             </Typography>
-                        </GapDiv>
+                        </Box>
                     </Grid>
                 </Grid>
                 <Divider />
@@ -133,12 +59,15 @@ function Footer() {
                         flexDirection: isMobile ? 'column-reverse' : 'row',
                     }}
                 >
-                    <Typography variant="h6">
-                        - ইনফরমেটিভ{' '}
-                        <Typography variant="span" color="textSecondary">
+                    <Box>
+                        <Typography variant="h6" display="inline">
+                            - ইনফরমেটিভ{' '}
+                        </Typography>
+                        <Typography variant="h6" display="inline" color="textSecondary">
                             কোডিং
                         </Typography>
-                    </Typography>
+                    </Box>
+
                     <SocialLinks links={links} />
                 </div>
             </Container>
