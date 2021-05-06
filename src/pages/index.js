@@ -60,6 +60,7 @@ function Home() {
                     })`}{' '}
                     | Informative Coding - ইনফরমেটিভ কোডিং
                 </title>
+                <meta name="description" content={shortTitle} />
                 <link rel="canonical" href={`${process.env.C_NAME}${process.env.ROOT_PAGE}`} />
             </Head>
             <Layout>
