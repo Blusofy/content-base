@@ -144,14 +144,11 @@ function Content({ content, source, title }) {
         </>
     );
 }
-// Encoding URI
-function encodeUri(str) {
-    return encodeURI(str).replace(/%5B/g, '[').replace(/%5D/g, ']');
-}
+
 // Get Static Props For SSG
 export async function getStaticProps(ctx) {
     const { title } = ctx.params;
-    const res = await fetch(encodeUri(
+    const res = await fetch(encodeURI(
         `${process.env.GITHUB_CONTENT_API_URI}${process.env.ROOT_PAGE}/${`${title.replace(
             /-/g,
             ' '
