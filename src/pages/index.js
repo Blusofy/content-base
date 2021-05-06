@@ -9,6 +9,7 @@ import Head from 'next/head';
 import { useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import printStyle from '../../styles/print.module.css';
+import AlertInfo from '../components/AlertInfo';
 import TopicsList from '../components/Content/List';
 import Layout from '../components/Layout';
 import Thumbnail from '../components/Thumbnail';
@@ -71,6 +72,7 @@ function Home() {
                             {!isMobile && <TopicsList />}
                         </Grid>
                         <Grid item sm={9}>
+                            {process.env.IS_COURSE_COMPLETED === 'false' && <AlertInfo />}
                             <div ref={componentRef}>
                                 <Thumbnail
                                     image={getIcon(title) ? false : image}
@@ -81,6 +83,7 @@ function Home() {
                                 />
                                 <Divider />
                                 <br />
+
                                 {description.map((text) => (
                                     <Description
                                         key={text.title}

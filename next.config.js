@@ -6,6 +6,7 @@ module.exports = {
         ROOT_PAGE: '/javascript',
         GITHUB_CONTENT_API_URI: 'https://api.github.com/repos/InformativeCoding/data/contents',
         GITHUB_AUTH_API_TOKEN: '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',
+        IS_COURSE_COMPLETED: 'false',
     },
     assetPrefix: isProd ? '/javascript' : '',
     basePath: isProd ? '/javascript' : '',

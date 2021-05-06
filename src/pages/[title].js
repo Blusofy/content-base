@@ -14,6 +14,7 @@ import Head from 'next/head';
 import { useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import printStyle from '../../styles/print.module.css';
+import AlertInfo from '../components/AlertInfo';
 import ContentList from '../components/Content/List';
 import ContentView from '../components/Content/View';
 import Layout from '../components/Layout';
@@ -81,6 +82,8 @@ function Content({ content, source, title }) {
                         <Grid item sm={9} style={{ width: '100%' }}>
                             <Fade in>
                                 <Box padding={isMobile ? '0rem' : '1rem'}>
+                                    {process.env.IS_COURSE_COMPLETED === 'false' && <AlertInfo />}
+
                                     <div ref={componentRef}>
                                         {isPrint && <PrintHead />}
                                         <ContentView content={content} source={source} />
